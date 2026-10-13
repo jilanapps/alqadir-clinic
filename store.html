@@ -97,7 +97,7 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:22px 16px}
   <div class="pills" id="pills"></div>
   <div class="pills" id="bpills" style="margin-top:-6px"></div>
   <div class="grid" id="grid"></div>
-  <footer>© 2026 Alqadir Homeopathic Clinic · 📞 0305 7867149<br>Delivery: Rs 200 (Rs 2,000+ par FREE) · Payment: Cash on Delivery / Easypaisa</footer>
+  <footer>© 2026 Alqadir Homeopathic Clinic · 📞 0300 7379385<br>Delivery: Rs 200 (Rs 2,000+ par FREE) · Payment: Cash on Delivery / Easypaisa</footer>
 </div>
 
 <div class="drawer" id="drawer">
@@ -224,7 +224,7 @@ function sendOrder(){
   var msg='💊 *Dawai Order — Alqadir Homeopathic Clinic*%0A%0A'+lines.join('%0A')+'%0A%0ASubtotal: '+rs(tot)+'%0ADelivery: '+(fee?rs(fee):'FREE')+'%0A*Total: '+rs(tot+fee)+'*%0A%0AName: '+encodeURIComponent(n)+'%0APhone: '+encodeURIComponent(ph)+'%0AAddress: '+encodeURIComponent(ad)+'%0APayment: '+pay+(nt?'%0ANote: '+encodeURIComponent(nt):'');
   try{var o=JSON.parse(localStorage.getItem(LS_O)||'[]');o.unshift({d:new Date().toLocaleString(),n:n,ph:ph,tot:tot+fee,items:c.length});localStorage.setItem(LS_O,JSON.stringify(o));}catch(e){}
   setC([]);document.getElementById('coModal').classList.remove('open');
-  window.open('https://wa.me/923057867149?text='+msg,'_blank');
+  window.open('https://wa.me/923007379385?text='+msg,'_blank');
 }
 updBadge();render();
 </script>
