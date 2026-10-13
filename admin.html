@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store Admin — Alqadir Clinic</title>
+<link rel="icon" href="img/logo.png">
+<style>
+:root{--green:#0b5c3f;--green-d:#073d2a;--gold:#c9a227;--cream:#faf8f1;--ink:#1e2a24;--muted:#5f6f66;--line:#e7e0cd}
+*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',system-ui,Arial;background:var(--cream);color:var(--ink)}
+.wrap{max-width:860px;margin:0 auto;padding:18px}
+h1{font-family:Georgia,serif;color:var(--green-d)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(7,61,42,.07)}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:14.5px;margin-bottom:10px;font-family:inherit}
+button{background:var(--green);color:#fff;border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:14px}
+button.danger{background:#b3261e}button.small{padding:6px 12px;font-size:12.5px}
+.tabs{display:flex;gap:8px;margin:14px 0}
+.tabs button{background:#eee;color:var(--ink)}.tabs button.on{background:var(--green);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--green-d)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1;min-width:120px}
+a{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>💊 Store Admin</h1>
+  <p><a href="store.html">← Dawai Store</a> · <a href="index.html">← Website</a></p>
+  <div class="card" id="loginCard">
+    <h3 style="margin-top:0">🔐 Login</h3>
+    <input id="u" placeholder="Username"><input id="p" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p style="font-size:12.5px;color:var(--muted)">Demo login — user: admin / pass: jilan123</p>
+  </div>
+  <div id="main" style="display:none">
+    <div class="tabs"><button id="t1" class="on" onclick="tab('orders')">📦 Orders</button><button id="t2" onclick="tab('prods')">💊 Dawaiyan</button></div>
+    <div id="v-orders"></div>
+    <div id="v-prods" style="display:none">
+      <div class="card"><h3 style="margin-top:0">➕ Nai Dawai</h3>
+        <div class="row"><input id="nEn" placeholder="English name"><input id="nUr" placeholder="Urdu name"></div>
+        <div class="row"><select id="nCat"><option value="dil">Dilution</option><option value="mt">Mother Tincture</option><option value="oint">Ointment/Cream</option><option value="tab">Tablets</option></select><input id="nPrice" type="number" placeholder="Price Rs"></div>
+        <input id="nDs" placeholder="Fayda (e.g. Chot, dard ke liye)"><input id="nPots" placeholder="Potencies comma me (e.g. 30C,200C) — na ho to khaali">
+        <button onclick="addP()">Add Dawai</button>
+      </div>
+      <div class="card"><h3 style="margin-top:0">📋 Dawaiyon ki List</h3><div id="plist"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+var LS_P='alq_med_products',LS_O='alq_med_orders',LS_A='alq_admin';
+function login(){if(document.getElementById('u').value==='admin'&&document.getElementById('p').value==='jilan123'){localStorage.setItem(LS_A,'1');show();}else alert('Ghalat username/password');}
+function show(){if(localStorage.getItem(LS_A)==='1'){document.getElementById('loginCard').style.display='none';document.getElementById('main').style.display='block';tab('orders');}}
+function tab(t){document.getElementById('t1').classList.toggle('on',t==='orders');document.getElementById('t2').classList.toggle('on',t==='prods');document.getElementById('v-orders').style.display=t==='orders'?'block':'none';document.getElementById('v-prods').style.display=t==='prods'?'block':'none';if(t==='orders')rOrders();else rProds();}
+function getP(){try{return JSON.parse(localStorage.getItem(LS_P)||'[]');}catch(e){return[];}}
+function setP(p){localStorage.setItem(LS_P,JSON.stringify(p));}
+function rOrders(){var o=[];try{o=JSON.parse(localStorage.getItem(LS_O)||'[]');}catch(e){}
+  document.getElementById('v-orders').innerHTML='<div class="card"><h3 style="margin-top:0">📦 Orders ('+o.length+')</h3>'+(o.length?'<table><tr><th>Date</th><th>Name</th><th>Phone</th><th>Items</th><th>Total</th></tr>'+o.map(x=>'<tr><td>'+x.d+'</td><td>'+x.n+'</td><td>'+x.ph+'</td><td>'+x.items+'</td><td>Rs '+x.tot+'</td></tr>').join('')+'</table> <button class="danger small" onclick="if(confirm(\'Clear?\')){localStorage.removeItem(LS_O);rOrders();}">Clear</button>':'<p style="color:var(--muted)">Abhi koi order nahi.</p>')+'</div>';}
+function rProds(){var p=getP();
+  document.getElementById('plist').innerHTML='<table><tr><th>Dawai</th><th>Cat</th><th>Price</th><th></th></tr>'+p.map(x=>'<tr><td><b>'+x.en+'</b><br><small>'+x.ur+'</small></td><td>'+x.cat+'</td><td><input style="width:90px;margin:0" type="number" value="'+x.price+'" onchange="setPrice(\''+x.id+'\',this.value)"></td><td><button class="danger small" onclick="delP(\''+x.id+'\')">Delete</button></td></tr>').join('')+'</table>';}
+function setPrice(id,v){var p=getP(),x=p.find(y=>y.id===id);if(x){x.price=parseInt(v)||0;setP(p);}}
+function delP(id){if(confirm('Delete?')){setP(getP().filter(x=>x.id!==id));rProds();}}
+function addP(){var en=document.getElementById('nEn').value.trim();if(!en){alert('Naam likhein');return;}
+  var p=getP();p.push({id:'m'+Date.now(),cat:document.getElementById('nCat').value,en:en,ur:document.getElementById('nUr').value||'',ds:document.getElementById('nDs').value||'',em:'💊',pots:(document.getElementById('nPots').value||'-').split(',').map(s=>s.trim()).filter(Boolean),price:parseInt(document.getElementById('nPrice').value)||0});
+  setP(p);rProds();alert('Add ho gayi');}
+show();
+</script>
+</body>
+</html>
