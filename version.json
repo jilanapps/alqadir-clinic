@@ -1,6 +1,6 @@
 {
- "version": "1.1",
- "apkVersionCode": 2,
+ "version": "1.2",
+ "apkVersionCode": 3,
  "apkUrl": "https://jilanapps.github.io/alqadir-clinic/alqadir-clinic.apk",
- "notes": "Alqadir Clinic v1.1 \u2014 medicine store (dawai order) added"
+ "notes": "Alqadir Clinic v1.2 \u2014 store button fix (in-app pages now open)"
 }
