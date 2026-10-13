@@ -40,7 +40,7 @@ a{color:var(--green)}
     <div id="v-prods" style="display:none">
       <div class="card"><h3 style="margin-top:0">➕ Nai Dawai</h3>
         <div class="row"><input id="nEn" placeholder="English name"><input id="nUr" placeholder="Urdu name"></div>
-        <div class="row"><select id="nCat"><option value="dil">Dilution</option><option value="mt">Mother Tincture</option><option value="oint">Ointment/Cream</option><option value="tab">Tablets</option></select><input id="nPrice" type="number" placeholder="Price Rs"></div>
+        <div class="row"><input id="nBrand" placeholder="Company (e.g. BM, Masood)"><select id="nCat"><option value="dil">Dilution</option><option value="mt">Mother Tincture</option><option value="oint">Ointment/Cream</option><option value="tab">Tablets</option></select><input id="nPrice" type="number" placeholder="Price Rs"></div>
         <input id="nDs" placeholder="Fayda (e.g. Chot, dard ke liye)"><input id="nPots" placeholder="Potencies comma me (e.g. 30C,200C) — na ho to khaali">
         <button onclick="addP()">Add Dawai</button>
       </div>
@@ -58,11 +58,12 @@ function setP(p){localStorage.setItem(LS_P,JSON.stringify(p));}
 function rOrders(){var o=[];try{o=JSON.parse(localStorage.getItem(LS_O)||'[]');}catch(e){}
   document.getElementById('v-orders').innerHTML='<div class="card"><h3 style="margin-top:0">📦 Orders ('+o.length+')</h3>'+(o.length?'<table><tr><th>Date</th><th>Name</th><th>Phone</th><th>Items</th><th>Total</th></tr>'+o.map(x=>'<tr><td>'+x.d+'</td><td>'+x.n+'</td><td>'+x.ph+'</td><td>'+x.items+'</td><td>Rs '+x.tot+'</td></tr>').join('')+'</table> <button class="danger small" onclick="if(confirm(\'Clear?\')){localStorage.removeItem(LS_O);rOrders();}">Clear</button>':'<p style="color:var(--muted)">Abhi koi order nahi.</p>')+'</div>';}
 function rProds(){var p=getP();
-  document.getElementById('plist').innerHTML='<table><tr><th>Dawai</th><th>Cat</th><th>Price</th><th></th></tr>'+p.map(x=>'<tr><td><b>'+x.en+'</b><br><small>'+x.ur+'</small></td><td>'+x.cat+'</td><td><input style="width:90px;margin:0" type="number" value="'+x.price+'" onchange="setPrice(\''+x.id+'\',this.value)"></td><td><button class="danger small" onclick="delP(\''+x.id+'\')">Delete</button></td></tr>').join('')+'</table>';}
+  document.getElementById('plist').innerHTML='<table><tr><th>Dawai</th><th>Brand</th><th>Price</th><th></th></tr>'+p.map(x=>'<tr><td><b>'+x.en+'</b><br><small>'+x.ur+'</small></td><td>'+x.cat+'</td><td><input style="width:90px;margin:0" type="number" value="'+x.price+'" onchange="setPrice(\''+x.id+'\',this.value)"></td><td><button class="danger small" onclick="delP(\''+x.id+'\')">Delete</button></td></tr>').join('')+'</table>';}
 function setPrice(id,v){var p=getP(),x=p.find(y=>y.id===id);if(x){x.price=parseInt(v)||0;setP(p);}}
+function setBrand(id,v){var p=getP(),x=p.find(y=>y.id===id);if(x){x.brand=v.trim();setP(p);rProds();}}
 function delP(id){if(confirm('Delete?')){setP(getP().filter(x=>x.id!==id));rProds();}}
 function addP(){var en=document.getElementById('nEn').value.trim();if(!en){alert('Naam likhein');return;}
-  var p=getP();p.push({id:'m'+Date.now(),cat:document.getElementById('nCat').value,en:en,ur:document.getElementById('nUr').value||'',ds:document.getElementById('nDs').value||'',em:'💊',pots:(document.getElementById('nPots').value||'-').split(',').map(s=>s.trim()).filter(Boolean),price:parseInt(document.getElementById('nPrice').value)||0});
+  var p=getP();p.push({id:'m'+Date.now(),brand:document.getElementById('nBrand').value.trim(),cat:document.getElementById('nCat').value,en:en,ur:document.getElementById('nUr').value||'',ds:document.getElementById('nDs').value||'',em:'💊',pots:(document.getElementById('nPots').value||'-').split(',').map(s=>s.trim()).filter(Boolean),price:parseInt(document.getElementById('nPrice').value)||0});
   setP(p);rProds();alert('Add ho gayi');}
 show();
 </script>

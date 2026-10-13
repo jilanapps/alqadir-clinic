@@ -95,6 +95,7 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:22px 16px}
   <div class="warn">⚠️ <b>Zaroori:</b> Dawai ka <b>potency (taqat)</b> aur miqdar ka intekhab hamesha <b>Dr. Muhammad Asif Ameen</b> ke mashware se karein. Ye dawaiyan clinic ke tajweez-kardah mareezon ke liye hain — khud se ilaj na karein.</div>
   <div class="tools"><input class="search" id="q" placeholder="🔍 Dawai talash karein... (e.g. Arnica)" oninput="render()"></div>
   <div class="pills" id="pills"></div>
+  <div class="pills" id="bpills" style="margin-top:-6px"></div>
   <div class="grid" id="grid"></div>
   <footer>© 2026 Alqadir Homeopathic Clinic · 📞 0305 7867149<br>Delivery: Rs 200 (Rs 2,000+ par FREE) · Payment: Cash on Delivery / Easypaisa</footer>
 </div>
@@ -153,11 +154,22 @@ var PRODUCTS=[
 {id:'m23',cat:'tab',en:'Five Phos Tablets',ur:'فائیو فاس گولیاں',ds:'Aam kamzori (20g)',em:'💊',pots:['6X'],price:280},
 {id:'m24',cat:'tab',en:'Bio-Combination 12',ur:'بائیو کمبینیشن 12',ds:'General health tonic (20g)',em:'💊',pots:['6X'],price:280},
 {id:'m25',cat:'tab',en:'Calcarea Phos',ur:'کیلکیریا فاس',ds:'Bachon ki nashonuma (20g)',em:'💊',pots:['6X'],price:250},
-{id:'m26',cat:'tab',en:'Ferrum Phos',ur:'فیرم فاس',ds:'Bukhar, khoon ki kami (20g)',em:'💊',pots:['6X'],price:250}
+{id:'m26',cat:'tab',en:'Ferrum Phos',ur:'فیرم فاس',ds:'Bukhar, khoon ki kami (20g)',em:'💊',pots:['6X'],price:250},
+{id:'b1',cat:'dil',brand:'BM',en:'BM Arnica Montana',ur:'بی ایم آرنیکا',ds:'Chot, dard, soojan (11ml)',em:'🌿',pots:['30C','200C','1M'],price:380},
+{id:'b2',cat:'dil',brand:'BM',en:'BM Nux Vomica',ur:'بی ایم نکس وامیکا',ds:'Maida, qabz (11ml)',em:'🌿',pots:['30C','200C'],price:380},
+{id:'b3',cat:'dil',brand:'BM',en:'BM Belladonna',ur:'بی ایم بیلاڈونا',ds:'Bukhar, sar dard (11ml)',em:'🌿',pots:['30C','200C'],price:380},
+{id:'b4',cat:'dil',brand:'BM',en:'BM Sulphur',ur:'بی ایم سلفر',ds:'Jildi amraz (11ml)',em:'🌿',pots:['30C','200C'],price:380},
+{id:'b5',cat:'dil',brand:'BM',en:'BM Rhus Tox',ur:'بی ایم رس ٹاکس',ds:'Kamar dard, akran (11ml)',em:'🌿',pots:['30C','200C'],price:380},
+{id:'b6',cat:'mt',brand:'BM',en:'BM Ashwagandha Q',ur:'بی ایم اشوگندھا',ds:'Taqat, aasabi kamzori (30ml)',em:'🧪',pots:['Q'],price:480},
+{id:'b7',cat:'mt',brand:'BM',en:'BM Echinacea Q',ur:'بی ایم ایکینیسیا',ds:'Quwwat-e-mudafiat (30ml)',em:'🧪',pots:['Q'],price:580},
+{id:'b8',cat:'oint',brand:'BM',en:'BM Calendula Ointment',ur:'بی ایم کیلنڈولا مرہم',ds:'Zakhm, jalan',em:'🧴',pots:['-'],price:380},
+{id:'b9',cat:'tab',brand:'BM',en:'BM Five Phos',ur:'بی ایم فائیو فاس',ds:'Aam kamzori (20g)',em:'💊',pots:['6X'],price:300},
+{id:'b10',cat:'tab',brand:'BM',en:'BM Bio-Combination 12',ur:'بی ایم بائیو کمبینیشن 12',ds:'General health tonic (20g)',em:'💊',pots:['6X'],price:300},
 ];
 var CATS={all:'Sab',dil:'Dilutions',mt:'Mother Tinctures',oint:'Ointments / Creams',tab:'Tablets'};
 var LS_P='alq_med_products', LS_C='alq_med_cart', LS_O='alq_med_orders';
-var curCat='all', selPot={};
+var curCat='all', curBrand='all', selPot={};
+PRODUCTS.forEach(function(p){if(!p.brand)p.brand='';});
 
 function getP(){try{var p=JSON.parse(localStorage.getItem(LS_P));if(p&&p.length)return p;}catch(e){}localStorage.setItem(LS_P,JSON.stringify(PRODUCTS));return PRODUCTS;}
 function getC(){try{return JSON.parse(localStorage.getItem(LS_C)||'[]');}catch(e){return[];}}
@@ -168,15 +180,19 @@ function rs(n){return 'Rs '+Number(n).toLocaleString('en-PK');}
 function render(){
   var q=(document.getElementById('q').value||'').toLowerCase();
   document.getElementById('pills').innerHTML=Object.keys(CATS).map(c=>'<button class="pill'+(c===curCat?' on':'')+'" onclick="setCat(\''+c+'\')">'+CATS[c]+'</button>').join('');
-  var list=getP().filter(p=>(curCat==='all'||p.cat===curCat)&&(!q||(p.en+p.ur).toLowerCase().includes(q)));
+  var bl=brands();
+  document.getElementById('bpills').innerHTML=bl.length>1?'<button class="pill'+(curBrand==='all'?' on':'')+'" onclick="setBrand(\'all\')">Sab Companies</button>'+bl.map(b=>'<button class="pill'+(b===curBrand?' on':'')+'" onclick="setBrand(\''+b+'\')">'+b+'</button>').join(''):'';
+  var list=getP().filter(p=>(curCat==='all'||p.cat===curCat)&&(curBrand==='all'||p.brand===curBrand)&&(!q||(p.en+p.ur+p.brand).toLowerCase().includes(q)));
   document.getElementById('grid').innerHTML=list.length?list.map(p=>{
     var pot=selPot[p.id]||p.pots[0];
-    return '<div class="pcard"><div class="em">'+p.em+'</div><h3>'+p.en+'</h3><div class="ur">'+p.ur+'</div><p class="ds">'+p.ds+'</p>'+
+    return '<div class="pcard"><div class="em">'+p.em+'</div>'+(p.brand?'<span style="display:inline-block;background:#eef4ef;color:var(--green-d);font-size:11px;font-weight:800;padding:2px 10px;border-radius:12px;align-self:flex-start">'+p.brand+'</span>':'')+'<h3>'+p.en+'</h3><div class="ur">'+p.ur+'</div><p class="ds">'+p.ds+'</p>'+
     (p.pots.length>1?'<div class="pot">'+p.pots.map(x=>'<button class="'+(x===pot?'on':'')+'" onclick="setPot(\''+p.id+'\',\''+x+'\')">'+x+'</button>').join('')+'</div>':'<div class="ur">Potency: '+p.pots[0]+'</div>')+
     '<div class="prow"><span class="price">'+rs(p.price)+'</span><button class="add" onclick="add(\''+p.id+'\')">+ Add</button></div></div>';
   }).join(''):'<div class="empty">🔍 Koi dawai nahi mili.</div>';
 }
 function setCat(c){curCat=c;render();}
+function brands(){var b={};getP().forEach(function(p){if(p.brand)b[p.brand]=1;});return Object.keys(b).sort();}
+function setBrand(b){curBrand=b;render();}
 function setPot(id,pot){selPot[id]=pot;render();}
 function add(id){
   var p=getP().find(x=>x.id===id); if(!p)return;
