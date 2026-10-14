@@ -127,7 +127,7 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:22px 16px}
 </div>
 
 <script>
-/* ---------- CATALOG (demo prices — Dr. Asif adjust karein) ---------- */
+/* ---------- CATALOG (Masood/Kent/Schwabe/Reckeweg rates Google/Pakistani sites se verified Oct 2026; Adel/SBL/Baksons/Wheezal/Lords/Burnett takhmeeni — admin panel se adjust karein) ---------- */
 var PRODUCTS=[
 {id:'m1',cat:'dil',en:'Arnica Montana',ur:'آرنیکا مونٹانا',ds:'Chot, dard, soojan ke liye',em:'🌿',pots:['30C','200C','1M'],price:350},
 {id:'m2',cat:'dil',en:'Belladonna',ur:'بیلاڈونا',ds:'Bukhar, sar dard, garmi se takleef',em:'🌿',pots:['30C','200C'],price:350},
@@ -165,9 +165,58 @@ var PRODUCTS=[
 {id:'b8',cat:'oint',brand:'BM',en:'BM Calendula Ointment',ur:'بی ایم کیلنڈولا مرہم',ds:'Zakhm, jalan',em:'🧴',pots:['-'],price:380},
 {id:'b9',cat:'tab',brand:'BM',en:'BM Five Phos',ur:'بی ایم فائیو فاس',ds:'Aam kamzori (20g)',em:'💊',pots:['6X'],price:300},
 {id:'b10',cat:'tab',brand:'BM',en:'BM Bio-Combination 12',ur:'بی ایم بائیو کمبینیشن 12',ds:'General health tonic (20g)',em:'💊',pots:['6X'],price:300},
+/* Masood — rates masoodstore.com.pk se verified (Oct 2026) */
+{id:'ms1',cat:'dil',brand:'Masood',en:'Masood Arnica Montana',ur:'مسعود آرنیکا',ds:'Chot, dard, soojan (30ml)',em:'🌿',pots:['30C','200C','1M'],price:290},
+{id:'ms2',cat:'dil',brand:'Masood',en:'Masood Nux Vomica',ur:'مسعود نکس وامیکا',ds:'Maida, qabz, gas (30ml)',em:'🌿',pots:['30C','200C'],price:290},
+{id:'ms3',cat:'dil',brand:'Masood',en:'Masood Belladonna',ur:'مسعود بیلاڈونا',ds:'Bukhar, sar dard (30ml)',em:'🌿',pots:['30C','200C'],price:290},
+{id:'ms4',cat:'dil',brand:'Masood',en:'Masood Sulphur',ur:'مسعود سلفر',ds:'Jildi amraz (30ml)',em:'🌿',pots:['30C','200C'],price:290},
+{id:'ms5',cat:'dil',brand:'Masood',en:'Masood Rhus Tox',ur:'مسعود رس ٹاکس',ds:'Kamar dard, akran (30ml)',em:'🌿',pots:['30C','200C'],price:290},
+{id:'ms6',cat:'mt',brand:'Masood',en:'Masood Avena Sativa Q',ur:'مسعود ایوینا سٹیوا',ds:'Neend, aasabi kamzori (30ml)',em:'🧪',pots:['Q'],price:210},
+{id:'ms7',cat:'mt',brand:'Masood',en:'Masood Sabal Serrulata Q',ur:'مسعود سبل سیرولاٹا',ds:'Prostate, taqat (30ml)',em:'🧪',pots:['Q'],price:450},
+{id:'ms8',cat:'mt',brand:'Masood',en:'Masood Tribulus Terrestris Q',ur:'مسعود ٹریبیولس',ds:'Taqat, quwwat (30ml)',em:'🧪',pots:['Q'],price:280},
+{id:'ms9',cat:'dil',brand:'Masood',en:'Masood Fever-M Drops',ur:'مسعود فیور ایم',ds:'Bukhar ke liye (30ml)',em:'🌿',pots:['-'],price:280},
+{id:'ms10',cat:'tab',brand:'Masood',en:'Masood Calcarea Sulph 3X',ur:'مسعود کیلکیریا سلف',ds:'Bio-chemic salt, jild (20g)',em:'💊',pots:['3X','6X'],price:250},
+/* Kent — rates kentpharma.com se verified (Oct 2026) */
+{id:'k1',cat:'dil',brand:'Kent',en:'Kent Arnica Montana',ur:'کینٹ آرنیکا',ds:'Chot, dard, soojan (30ml)',em:'🌿',pots:['30C','200C','1M'],price:240},
+{id:'k2',cat:'dil',brand:'Kent',en:'Kent Nux Vomica',ur:'کینٹ نکس وامیکا',ds:'Maida, qabz (30ml)',em:'🌿',pots:['30C','200C'],price:240},
+{id:'k3',cat:'dil',brand:'Kent',en:'Kent 7 Piles Drops',ur:'کینٹ 7 بویسر',ds:'Bawaseer, jalan (30ml)',em:'🌿',pots:['-'],price:230},
+{id:'k4',cat:'dil',brand:'Kent',en:'Kent 11 Liver Drops',ur:'کینٹ 11 جگر',ds:'Jigar, pitta (30ml)',em:'🌿',pots:['-'],price:230},
+{id:'k5',cat:'dil',brand:'Kent',en:'Kent 5 Gastro Drops',ur:'کینٹ 5 معدہ',ds:'Maida, tezabiyat (30ml)',em:'🌿',pots:['-'],price:230},
+{id:'k6',cat:'dil',brand:'Kent',en:'Kent 53 Hepatitis Drops',ur:'کینٹ 53 یرقان',ds:'Yarqan, jigar (30ml)',em:'🌿',pots:['-'],price:230},
+{id:'k7',cat:'dil',brand:'Kent',en:'Kent Ginseng Drops',ur:'کینٹ جن سنگ',ds:'Taqat, quwwat (30ml)',em:'🌿',pots:['-'],price:800},
+{id:'k8',cat:'dil',brand:'Kent',en:'Kent 25 Prostate Drops',ur:'کینٹ 25 پروسٹیٹ',ds:'Prostate, peshab (30ml)',em:'🌿',pots:['-'],price:230},
+/* Schwabe Germany — rates myvitaminstore.pk (Pakistan) se verified (Oct 2026) */
+{id:'s1',cat:'dil',brand:'Schwabe',en:'Schwabe Arnica Montana',ur:'شوابے آرنیکا',ds:'Chot, dard, soojan (10ml)',em:'🌿',pots:['30C','200C'],price:820},
+{id:'s2',cat:'dil',brand:'Schwabe',en:'Schwabe Nux Vomica',ur:'شوابے نکس وامیکا',ds:'Maida, qabz (10ml)',em:'🌿',pots:['30C','200C'],price:795},
+{id:'s3',cat:'dil',brand:'Schwabe',en:'Schwabe Rhus Tox',ur:'شوابے رس ٹاکس',ds:'Kamar dard, akran (10ml)',em:'🌿',pots:['200C'],price:820},
+{id:'s4',cat:'mt',brand:'Schwabe',en:'Schwabe Berberis Vulgaris Q',ur:'شوابے بربیرس',ds:'Gurda, kamar dard (20ml)',em:'🧪',pots:['Q'],price:1250},
+{id:'s5',cat:'mt',brand:'Schwabe',en:'Schwabe Crataegus Q',ur:'شوابے کریٹیگس',ds:'Dil, blood pressure (20ml)',em:'🧪',pots:['Q'],price:1250},
+{id:'s6',cat:'tab',brand:'Schwabe',en:'Schwabe Five Phos 6X',ur:'شوابے فائیو فاس',ds:'Aam kamzori (20g)',em:'💊',pots:['6X'],price:795},
+{id:'s7',cat:'tab',brand:'Schwabe',en:'Schwabe Bioplasgen 23',ur:'شوابے بائیوپلاسجن 23',ds:'Danton ka dard (20g)',em:'💊',pots:['-'],price:795},
+/* Reckeweg Germany — rates Pakistani online stores se verified (Oct 2026) */
+{id:'r1',cat:'dil',brand:'Reckeweg',en:'Reckeweg Arnica Montana',ur:'ریکیویگ آرنیکا',ds:'Chot, dard, soojan (11ml)',em:'🌿',pots:['30C','200C'],price:750},
+{id:'r2',cat:'dil',brand:'Reckeweg',en:'Reckeweg Nux Vomica',ur:'ریکیویگ نکس وامیکا',ds:'Maida, qabz (11ml)',em:'🌿',pots:['30C','200C'],price:750},
+{id:'r3',cat:'mt',brand:'Reckeweg',en:'Reckeweg Agnus Castus Q',ur:'ریکیویگ ایگنس کاسٹس',ds:'Taqat (20ml)',em:'🧪',pots:['Q'],price:1250},
+{id:'r4',cat:'dil',brand:'Reckeweg',en:'Reckeweg Carbo Veg 200',ur:'ریکیویگ کاربو ویج',ds:'Gas, kamzori (11ml)',em:'🌿',pots:['200C'],price:1250},
+{id:'r5',cat:'dil',brand:'Reckeweg',en:'Reckeweg R5 Drops',ur:'ریکیویگ آر 5',ds:'Maida, gas (22ml)',em:'🌿',pots:['-'],price:1500},
+/* Adel Germany, SBL, Baksons, Wheezal, Lords, Burnett — takhmeeni market rates (admin se adjust ho sakte hain) */
+{id:'a1',cat:'dil',brand:'Adel',en:'Adel Arnica Montana',ur:'ایڈل آرنیکا',ds:'Chot, dard (10ml)',em:'🌿',pots:['30C','200C'],price:950},
+{id:'a2',cat:'dil',brand:'Adel',en:'Adel Nux Vomica',ur:'ایڈل نکس وامیکا',ds:'Maida, qabz (10ml)',em:'🌿',pots:['30C','200C'],price:950},
+{id:'a3',cat:'mt',brand:'Adel',en:'Adel Ashwagandha Q',ur:'ایڈل اشوگندھا',ds:'Taqat (20ml)',em:'🧪',pots:['Q'],price:1350},
+{id:'sb1',cat:'dil',brand:'SBL',en:'SBL Arnica Montana',ur:'ایس بی ایل آرنیکا',ds:'Chot, dard (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'sb2',cat:'dil',brand:'SBL',en:'SBL Nux Vomica',ur:'ایس بی ایل نکس وامیکا',ds:'Maida, qabz (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'sb3',cat:'tab',brand:'SBL',en:'SBL Five Phos 6X',ur:'ایس بی ایل فائیو فاس',ds:'Aam kamzori (20g)',em:'💊',pots:['6X'],price:380},
+{id:'bk1',cat:'dil',brand:'Baksons',en:'Baksons Arnica Montana',ur:'بیکسنز آرنیکا',ds:'Chot, dard (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'bk2',cat:'oint',brand:'Baksons',en:'Baksons Calendula Ointment',ur:'بیکسنز کیلنڈولا مرہم',ds:'Zakhm, jalan (25g)',em:'🧴',pots:['-'],price:400},
+{id:'w1',cat:'dil',brand:'Wheezal',en:'Wheezal Arnica Montana',ur:'ویزل آرنیکا',ds:'Chot, dard (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'w2',cat:'dil',brand:'Wheezal',en:'Wheezal Nux Vomica',ur:'ویزل نکس وامیکا',ds:'Maida, qabz (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'l1',cat:'dil',brand:'Lords',en:'Lords Arnica Montana',ur:'لارڈز آرنیکا',ds:'Chot, dard (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'l2',cat:'dil',brand:'Lords',en:'Lords Nux Vomica',ur:'لارڈز نکس وامیکا',ds:'Maida, qabz (30ml)',em:'🌿',pots:['30C','200C'],price:450},
+{id:'bn1',cat:'dil',brand:'Burnett',en:'Burnett Arnica Montana',ur:'برنٹ آرنیکا',ds:'Chot, dard (30ml)',em:'🌿',pots:['30C','200C'],price:320},
+{id:'bn2',cat:'dil',brand:'Burnett',en:'Burnett Flow Well Drops',ur:'برنٹ فلو ویل',ds:'Peshab ki takleef (30ml)',em:'🌿',pots:['-'],price:350},
 ];
 var CATS={all:'Sab',dil:'Dilutions',mt:'Mother Tinctures',oint:'Ointments / Creams',tab:'Tablets'};
-var LS_P='alq_med_products', LS_C='alq_med_cart', LS_O='alq_med_orders';
+var LS_P='alq_med_products_v2', LS_C='alq_med_cart', LS_O='alq_med_orders';
 var curCat='all', curBrand='all', selPot={};
 PRODUCTS.forEach(function(p){if(!p.brand)p.brand='';});
 

@@ -49,7 +49,7 @@ a{color:var(--green)}
   </div>
 </div>
 <script>
-var LS_P='alq_med_products',LS_O='alq_med_orders',LS_A='alq_admin';
+var LS_P='alq_med_products_v2',LS_O='alq_med_orders',LS_A='alq_admin';
 function login(){if(document.getElementById('u').value==='admin'&&document.getElementById('p').value==='jilan123'){localStorage.setItem(LS_A,'1');show();}else alert('Ghalat username/password');}
 function show(){if(localStorage.getItem(LS_A)==='1'){document.getElementById('loginCard').style.display='none';document.getElementById('main').style.display='block';tab('orders');}}
 function tab(t){document.getElementById('t1').classList.toggle('on',t==='orders');document.getElementById('t2').classList.toggle('on',t==='prods');document.getElementById('v-orders').style.display=t==='orders'?'block':'none';document.getElementById('v-prods').style.display=t==='prods'?'block':'none';if(t==='orders')rOrders();else rProds();}
